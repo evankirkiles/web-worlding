@@ -31,9 +31,9 @@ export default class GamepadInputProvider implements IInputProvider {
     null,
     null,
     InputButton.UP,
-    InputButton.USE,
-    InputButton.VIEWTOGGLE,
     InputButton.DOWN,
+    InputButton.VIEWTOGGLE,
+    InputButton.USE,
   ];
 
   /**
