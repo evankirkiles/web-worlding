@@ -8,9 +8,13 @@
 import { InputManager } from '../../core/InputManager';
 import { InputButton, InputJoystick } from '../../enums/UserInputs';
 import { IInputProvider } from '../../interfaces/IInputProvider';
-import type Gamepads_ from 'gamepads';
-
-let Gamepads: typeof Gamepads_;
+import {
+  GamepadEventCode,
+  GamepadHandler,
+  GamepadHandlerEventCode,
+  StandardMapping,
+  _GamepadEvent,
+} from '../../../lib/gamepads/gamepads';
 
 export default class GamepadInputProvider implements IInputProvider {
   private manager: InputManager;
@@ -38,25 +42,23 @@ export default class GamepadInputProvider implements IInputProvider {
    */
   constructor(manager: InputManager) {
     this.manager = manager;
-    Gamepads = require('gamepads');
+    const Gamepads = new GamepadHandler();
     Gamepads.start(); // begin scanning for gamepads to connect with
-    Gamepads.addEventListener('connect', (e: any) => {
+    Gamepads.addEventListener(GamepadHandlerEventCode.Connect, (e: _GamepadEvent) => {
       console.log('Gamepad connected.');
-      e.gamepad.joystickDeadzone = 0.1;
       // add listeners to gamepad
-      e.gamepad.addEventListener('buttonvaluechange', (evt: any) => {
-        console.log('hi');
+      e.gamepad.addEventListener(GamepadEventCode.ButtonValueChange, (evt: any) => {
         this.onButtonChange(evt);
       });
       e.gamepad.addEventListener(
-        'joystickmove',
+        GamepadEventCode.JoystickMove,
         (evt: any) => this.onJoystickMove(evt, InputJoystick.MAIN),
-        [0, 1], // js1
+        StandardMapping.Axis.JOYSTICK_LEFT, // js1
       );
       e.gamepad.addEventListener(
-        'joystickmove',
+        GamepadEventCode.JoystickMove,
         (evt: any) => this.onJoystickMove(evt, InputJoystick.SECONDARY),
-        [2, 3], // js2
+        StandardMapping.Axis.JOYSTICK_RIGHT, // js2
       );
     });
   }

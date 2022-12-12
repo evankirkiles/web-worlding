@@ -11,7 +11,7 @@ import { Player } from '../players/Player';
 import { World } from './World';
 
 // const PLAYER_MODEL = '/assets/characters/player-anim.glb';
-const PLAYER_MODEL = '/assets/characters/personspace.glb';
+// const PLAYER_MODEL = '/assets/characters/personspace.glb';
 // const PLAYER_MODEL = '/models/player.glb';
 // const PLAYER_MODEL = '/models/boxman.glb';
 
@@ -32,7 +32,7 @@ export class PlayerSpawnPoint implements ISpawnPoint {
    * @param world The world in which the spawn point exists
    */
   public async spawn(world: World) {
-    const playerGLTF = await world.loadingManager.loadGLTF(PLAYER_MODEL);
+    const playerGLTF = await world.loadingManager.loadGLTF(world.playerModelPath);
     const player = new Player(playerGLTF, world.inputManager);
     const worldPos = new THREE.Vector3();
     this.object.getWorldPosition(worldPos);

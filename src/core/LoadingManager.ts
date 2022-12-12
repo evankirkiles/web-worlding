@@ -5,7 +5,7 @@
  * 2022 the player space,
  */
 
-import { GLTF, GLTFLoader } from 'three-stdlib';
+import { GLTF, GLTFLoader } from 'three-stdlib/loaders/GLTFLoader';
 import { World } from '../world/World';
 import { LoadingTrackerEntry } from './LoadingTrackerEntry';
 

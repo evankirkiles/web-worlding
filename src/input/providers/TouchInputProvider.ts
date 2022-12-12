@@ -7,9 +7,7 @@
 import { InputManager } from '../../core/InputManager';
 import { InputJoystick } from '../../enums/UserInputs';
 import { IInputProvider } from '../../interfaces/IInputProvider';
-import type NippleJs from 'nipplejs';
-
-let nipplejs: typeof NippleJs;
+import NippleJs from 'nipplejs';
 
 export default class TouchInputProvider implements IInputProvider {
   private manager: InputManager;
@@ -19,7 +17,7 @@ export default class TouchInputProvider implements IInputProvider {
   public domElement: HTMLElement;
   // nipple for main movement
   public nippleDomElement: HTMLDivElement;
-  public nippleManager?: ReturnType<typeof nipplejs.create>;
+  public nippleManager?: ReturnType<typeof NippleJs.create>;
   public nippleState = 'end';
 
   // is the device a touch screen? if not, we do not show anything
@@ -30,12 +28,7 @@ export default class TouchInputProvider implements IInputProvider {
     this.domElement = domElement;
 
     // check if we're on a touch screen
-    this.isTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || true;
-
-    // only get nipplejs if we touch screen
-    if (this.isTouchScreen) {
-      nipplejs = require('nipplejs');
-    }
+    this.isTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     // create the nipple dom element
     this.nippleDomElement = document.createElement('div');
@@ -59,7 +52,7 @@ export default class TouchInputProvider implements IInputProvider {
     this.isListening = true;
     // add 360º nipple
     this.domElement.append(this.nippleDomElement);
-    this.nippleManager = nipplejs.create({
+    this.nippleManager = NippleJs.create({
       zone: this.nippleDomElement,
       mode: 'static',
       dynamicPage: true,

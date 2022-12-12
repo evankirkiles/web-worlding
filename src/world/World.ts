@@ -9,10 +9,9 @@
  */
 import * as CANNON from 'cannon-es';
 import CannonDebugger from 'cannon-es-debugger';
-import _ from 'lodash';
 import * as THREE from 'three';
 import { computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh';
-import { GLTF } from 'three-stdlib';
+import { GLTF } from 'three-stdlib/loaders/GLTFLoader';
 import { CameraOperator } from '../core/CameraOperator';
 import * as Utils from '../core/FunctionLibrary';
 import { InputManager } from '../core/InputManager';
@@ -31,6 +30,7 @@ export class World {
   public renderer: THREE.WebGLRenderer;
   public camera: THREE.PerspectiveCamera;
   public cameraOperator: CameraOperator;
+  public playerModelPath: string;
 
   // world assets
   public graphicsWorld: THREE.Scene;
@@ -80,6 +80,7 @@ export class World {
    */
   constructor(
     target: HTMLDivElement,
+    playerModelPath: string,
     worldScenePath?: string,
     callbacks: {
       onDownloadStart?: () => void;
@@ -141,6 +142,9 @@ export class World {
     this.logicDelta = 0;
     this.sinceLastFrame = 0;
     this.justRendered = false;
+
+    // save reference to location of player model
+    this.playerModelPath = playerModelPath;
 
     // load scene if path is supplied
     if (worldScenePath) {
@@ -260,7 +264,7 @@ export class World {
    * @param registree The entity to remove from the update loop
    */
   public unregisterUpdatable(registree: IUpdatable) {
-    _.pull(this.updatables, registree);
+    this.updatables = this.updatables.filter((updatable) => updatable !== registree);
   }
 
   /**

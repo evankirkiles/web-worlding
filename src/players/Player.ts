@@ -5,9 +5,8 @@
  * 2022 the player space,
  */
 import * as CANNON from 'cannon-es';
-import _ from 'lodash';
 import * as THREE from 'three';
-import { GLTF } from 'three-stdlib';
+import { GLTF } from 'three-stdlib/loaders/GLTFLoader';
 import * as Utils from '../core/FunctionLibrary';
 import { InputManager } from '../core/InputManager';
 import { CollisionGroups } from '../enums/CollisionGroups';
@@ -312,7 +311,7 @@ export class Player extends THREE.Object3D implements IWorldEntity, IInputReceiv
    */
   public addToWorld(world: World): void {
     // check to make sure the player is not already in the world
-    if (_.includes(world.players, this)) {
+    if (world.players.includes(this)) {
       console.warn('Could not add PLAYER to world it already exists in!');
       // if not, then add the player to the world
     } else {
@@ -334,7 +333,7 @@ export class Player extends THREE.Object3D implements IWorldEntity, IInputReceiv
    */
   public removeFromWorld(world: World): void {
     // check to make sure the player is still in the world
-    if (!_.includes(world.players, this)) {
+    if (world.players.includes(this)) {
       console.warn('Could not remove PLAYER from a world it is not in!');
       // if so, then remove the player from the world
     } else {
@@ -342,7 +341,7 @@ export class Player extends THREE.Object3D implements IWorldEntity, IInputReceiv
       this.world = undefined;
 
       // remove from players, world, body
-      _.pull(world.players, this);
+      world.players = world.players.filter((player) => player !== this);
       world.physicsWorld.removeBody(this.playerCapsule.body);
       world.graphicsWorld.remove(this.raycastBox);
       world.graphicsWorld.remove(this);
