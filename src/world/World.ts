@@ -87,12 +87,13 @@ export class World {
       onDownloadProgress?: (p: number, d: number, t: number) => void;
       onDownloadFinish?: () => void;
     } = {},
+    pixelRatio = 0,
   ) {
     this.target = target;
 
     // initialize Renderer
     this.renderer = new THREE.WebGLRenderer({ alpha: true });
-    // this.renderer.setPixelRatio(0.3);
+    if (pixelRatio) this.renderer.setPixelRatio(pixelRatio);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 

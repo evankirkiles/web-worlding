@@ -1,23 +1,23 @@
 {
   "name": "web-worlding",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "3D spaces explorable on the web.",
   "main": "dist/web-worlding.js",
   "jsnext:main": "dist/web-worlding.module.js",
   "module": "dist/web-worlding.module.js",
-  "types": "dist/web-worlding.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "rollup --config --watch",
     "build": "rollup --config && terser dist/web-worlding.js -o dist/web-worlding.min.js --comments '/^!/' && downlevel-dts . .",
     "lint": "eslint src --ext ts",
     "typedoc": "typedoc",
     "format": "prettier --write \"src/**/*.(js|ts)\"",
-    "test": "jest --config jest.config.js",
+    "test": "jest --config jest.config.js --passWithNoTests",
     "prepare": "yarn build",
     "prepublishOnly": "yarn test && yarn lint",
     "preversion": "yarn lint",
     "version": "yarn format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push origin master && git push origin master --tags"
   },
   "repository": {
     "type": "git",

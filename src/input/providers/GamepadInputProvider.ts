@@ -14,7 +14,7 @@ import {
   GamepadHandlerEventCode,
   StandardMapping,
   _GamepadEvent,
-} from '../../../lib/gamepads/gamepads';
+} from '../../lib/gamepads/gamepads';
 
 export default class GamepadInputProvider implements IInputProvider {
   private manager: InputManager;
