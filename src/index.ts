@@ -1,4 +1,4 @@
-export { Uuid } from './helpers/uuid';
-import uuid from './helpers/uuid';
+export { World } from './world/World';
+import { World } from './world/World';
 
-export default uuid;
+export default World;

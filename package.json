@@ -1,7 +1,7 @@
 {
-  "name": "ts-npm-package-boilerplate",
-  "version": "0.1.9",
-  "description": "TypeScript NPM Module Boilerplate",
+  "name": "web-worlding",
+  "version": "0.1.0",
+  "description": "3D spaces explorable on the web.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -21,15 +21,17 @@
     "url": "git+https://github.com/hebertcisco/ts-npm-package-boilerplate.git"
   },
   "keywords": [
-    "boilerplate",
+    "3D",
+    "webgl",
+    "three",
     "typescript"
   ],
-  "author": "Hebert Cisco",
+  "author": "Evan Kirkiles",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hebertcisco/ts-npm-package-boilerplate/issues"
+    "url": "https://github.com/evankirkiles/web-worldiing/issues"
   },
-  "homepage": "https://github.com/hebertcisco/ts-npm-package-boilerplate#readme",
+  "homepage": "https://github.com/evankirkiles/web-worlding#readme",
   "devDependencies": {
     "@types/jest": "29.2.4",
     "@typescript-eslint/eslint-plugin": "5.46.0",
@@ -43,5 +45,17 @@
   },
   "files": [
     "lib/**/*"
-  ]
+  ],
+  "dependencies": {
+    "@types/lodash": "^4.14.191",
+    "@types/three": "^0.146.0",
+    "camera-controls": "^1.37.4",
+    "cannon-es": "^0.20.0",
+    "cannon-es-debugger": "^1.0.0",
+    "lodash": "^4.17.21",
+    "nipplejs": "^0.10.0",
+    "three": "^0.147.0",
+    "three-mesh-bvh": "^0.5.19",
+    "three-stdlib": "^2.20.4"
+  }
 }
