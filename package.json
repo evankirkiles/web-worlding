@@ -1,6 +1,6 @@
 {
   "name": "web-worlding",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "3D spaces explorable on the web.",
   "main": "dist/web-worlding.js",
   "jsnext:main": "dist/web-worlding.module.js",
@@ -16,7 +16,7 @@
     "prepare": "yarn build",
     "prepublishOnly": "yarn test && yarn lint",
     "preversion": "yarn lint",
-    "version": "nyarn format && git add -A src",
+    "version": "yarn format && git add -A src",
     "postversion": "git push && git push --tags"
   },
   "repository": {
@@ -32,7 +32,7 @@
   "author": "Evan Kirkiles",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/evankirkiles/web-worldiing/issues"
+    "url": "https://github.com/evankirkiles/web-worlding/issues"
   },
   "homepage": "https://github.com/evankirkiles/web-worlding#readme",
   "devDependencies": {
