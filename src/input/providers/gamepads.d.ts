@@ -1,4 +1,4 @@
 declare module 'gamepads' {
-    import Gamepads from 'gamepads';
-    export default Gamepads;
+  import Gamepads from 'gamepads';
+  export default Gamepads;
 }

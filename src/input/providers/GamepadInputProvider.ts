@@ -19,6 +19,7 @@ import {
 export default class GamepadInputProvider implements IInputProvider {
   private manager: InputManager;
   isListening = false;
+  joystickDeadzone = 0.15;
 
   // map controller joysticks (XY)
   bindings_controllers: InputJoystick[] = [InputJoystick.MAIN, InputJoystick.SECONDARY];
@@ -101,8 +102,8 @@ export default class GamepadInputProvider implements IInputProvider {
   onJoystickMove(e: any, joystick: InputJoystick): void {
     if (!this.isListening) return;
     const invert = joystick === InputJoystick.MAIN ? -1 : 1;
-    const x = Math.abs(e.horizontalValue) < 0.1 ? 0 : e.horizontalValue * invert;
-    const y = Math.abs(e.verticalValue) < 0.1 ? 0 : e.verticalValue * invert;
+    const x = Math.abs(e.horizontalValue) < this.joystickDeadzone ? 0 : e.horizontalValue * invert;
+    const y = Math.abs(e.verticalValue) < this.joystickDeadzone ? 0 : e.verticalValue * invert;
     this.manager.handleJoystickEvent(joystick, Math.atan2(y, x), Math.hypot(x, y), x !== 0 || y !== 0);
     return;
   }
