@@ -1,6 +1,6 @@
 {
   "name": "web-worlding",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "3D spaces explorable on the web.",
   "main": "dist/web-worlding.js",
   "jsnext:main": "dist/web-worlding.module.js",
@@ -55,7 +55,7 @@
     "typescript": "4.9.4"
   },
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
   "dependencies": {
     "@types/three": "^0.146.0",
