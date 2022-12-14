@@ -2,7 +2,6 @@ import pkg from './package.json' assert { type: 'json' };
 import rollupReplace from '@rollup/plugin-replace';
 import rollupTypescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import externalGlobals from 'rollup-plugin-external-globals';
 import typescript from 'typescript';
 
 const license = `/*!
@@ -22,7 +21,7 @@ const license = `/*!
 
 export default {
   input: 'src/index.ts',
-  // external: ['three'],
+  external: ['three'],
   output: [
     {
       format: 'umd',
@@ -30,24 +29,23 @@ export default {
       file: pkg.main,
       banner: license,
       indent: '\t',
-      // globals: {
-      //   three: 'THREE',
-      // },
+      globals: {
+        three: 'THREE',
+      },
     },
     {
       format: 'es',
       file: pkg.module,
       banner: license,
       indent: '\t',
-      // globals: {
-      //   three: 'THREE',
-      // },
+      globals: {
+        three: 'THREE',
+      },
     },
   ],
   plugins: [
     rollupReplace({ preventAssignment: true, __VERSION: pkg.version }),
     rollupTypescript({ typescript }),
-    externalGlobals({ three: 'THREE' }),
     nodeResolve(),
   ],
   // onwarn,
