@@ -24,8 +24,8 @@ export default class TouchInputProvider implements IInputProvider {
   public buttonMapping: {
     [key in InputButton]?: {
       domElement: HTMLDivElement;
-      boundMouseDownListener: () => void;
-      boundMouseUpListener: () => void;
+      boundTouchStartListener: () => void;
+      boundTouchEndListener: () => void;
     };
   };
 
@@ -71,18 +71,18 @@ export default class TouchInputProvider implements IInputProvider {
       domElement.className = 'web-worlding-button';
       switch (button) {
         case InputButton.DOWN:
-          domElement.style.left = 'calc(35px + 3vw)';
-          domElement.style.bottom = 'calc(35px + 3vw)';
+          domElement.style.left = 'calc(25px + 3vw)';
+          domElement.style.bottom = 'calc(25px + 3vw)';
           domElement.textContent = '↓';
           break;
         case InputButton.UP:
-          domElement.style.left = 'calc(35px + 3vw)';
-          domElement.style.bottom = 'calc(100px + 3vw)';
+          domElement.style.left = 'calc(25px + 3vw)';
+          domElement.style.bottom = 'calc(85px + 3vw)';
           domElement.textContent = '↑';
           break;
         case InputButton.VIEWTOGGLE:
           domElement.style.left = 'calc(50vw - 25px)';
-          domElement.style.bottom = 'calc(35px + 3vw)';
+          domElement.style.bottom = 'calc(25px + 3vw)';
           domElement.textContent = '↻';
           break;
         case InputButton.SPEED:
@@ -90,8 +90,8 @@ export default class TouchInputProvider implements IInputProvider {
       }
       acc[button] = {
         domElement,
-        boundMouseDownListener: () => this.onButtonEvent(button, true),
-        boundMouseUpListener: () => this.onButtonEvent(button, false),
+        boundTouchStartListener: () => this.onButtonEvent(button, true),
+        boundTouchEndListener: () => this.onButtonEvent(button, false),
       };
       return acc;
     }, {});
@@ -118,10 +118,10 @@ export default class TouchInputProvider implements IInputProvider {
     this.nippleManager.on('end', () => this.onNippleStop());
     this.nippleManager.on('move', (evt, data) => this.onNippleMove(evt, data));
     // append all dom elements to canvas, with event listeners
-    Object.values(this.buttonMapping).forEach(({ domElement, boundMouseDownListener, boundMouseUpListener }) => {
+    Object.values(this.buttonMapping).forEach(({ domElement, boundTouchStartListener, boundTouchEndListener }) => {
       this.domElement.append(domElement);
-      domElement.addEventListener('mousedown', boundMouseDownListener, false);
-      domElement.addEventListener('mouseup', boundMouseUpListener, false);
+      domElement.addEventListener('touchstart', boundTouchStartListener, false);
+      domElement.addEventListener('touchend', boundTouchEndListener, false);
     });
   }
 
