@@ -5,7 +5,7 @@
  * created on Thu Dec 08 2022
  * 2022 the player space,
  */
-import { InputManager } from '../../core/InputManager';
+import { InputManager } from '../InputManager';
 import { InputButton, InputJoystick } from '../../enums/UserInputs';
 import { IInputProvider } from '../../interfaces/IInputProvider';
 import {

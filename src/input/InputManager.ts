@@ -8,12 +8,12 @@ import { IInputReceiver } from '../interfaces/IInputReceiver';
 import { IUpdatable } from '../interfaces/IUpdatable';
 import { World } from '../world/World';
 import { InputButton, InputJoystick } from '../enums/UserInputs';
-import { JoystickBinding } from '../input/JoystickBinding';
-import { ButtonBinding } from '../input/ButtonBinding';
+import { JoystickBinding } from './JoystickBinding';
+import { ButtonBinding } from './ButtonBinding';
 import { IInputProvider } from '../interfaces/IInputProvider';
-import KeyboardInputProvider from '../input/providers/KeyboardInputProvider';
-import TouchInputProvider from '../input/providers/TouchInputProvider';
-import GamepadInputProvider from '../input/providers/GamepadInputProvider';
+import KeyboardInputProvider from './providers/KeyboardInputProvider';
+import TouchInputProvider from './providers/TouchInputProvider';
+import GamepadInputProvider from './providers/GamepadInputProvider';
 
 export class InputManager implements IUpdatable {
   public updateOrder = 3;
@@ -53,14 +53,14 @@ export class InputManager implements IUpdatable {
    * Initialize the listeners to the world
    * @param world
    */
-  constructor(world: World, domElement?: HTMLElement) {
+  constructor(world: World, domElement?: HTMLElement, forceTouchScreen?: boolean) {
     // init properties
     this.world = world;
 
     // add input providers for different modes of use
     this.inputProviders = [
       new KeyboardInputProvider(this),
-      new TouchInputProvider(this, domElement),
+      new TouchInputProvider(this, domElement, forceTouchScreen),
       new GamepadInputProvider(this),
     ];
 

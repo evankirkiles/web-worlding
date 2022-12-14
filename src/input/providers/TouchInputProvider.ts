@@ -4,7 +4,7 @@
  * created on Thu Dec 08 2022
  * 2022 the player space,
  */
-import { InputManager } from '../../core/InputManager';
+import { InputManager } from '../InputManager';
 import { InputJoystick } from '../../enums/UserInputs';
 import { IInputProvider } from '../../interfaces/IInputProvider';
 import NippleJs from 'nipplejs';
@@ -23,12 +23,12 @@ export default class TouchInputProvider implements IInputProvider {
   // is the device a touch screen? if not, we do not show anything
   public isTouchScreen = false;
 
-  constructor(manager: InputManager, domElement: HTMLElement = document.body) {
+  constructor(manager: InputManager, domElement: HTMLElement = document.body, forceEnable?: boolean) {
     this.manager = manager;
     this.domElement = domElement;
 
     // check if we're on a touch screen
-    this.isTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    this.isTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || !!forceEnable;
 
     // create the nipple dom element
     this.nippleDomElement = document.createElement('div');

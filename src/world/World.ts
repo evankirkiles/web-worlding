@@ -14,7 +14,7 @@ import { computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh';
 import { GLTF } from 'three-stdlib/loaders/GLTFLoader';
 import { CameraOperator } from '../core/CameraOperator';
 import * as Utils from '../core/FunctionLibrary';
-import { InputManager } from '../core/InputManager';
+import { InputManager } from '../input/InputManager';
 import { LoadingManager } from '../core/LoadingManager';
 import { CollisionGroups } from '../enums/CollisionGroups';
 import { IUpdatable } from '../interfaces/IUpdatable';
@@ -25,6 +25,12 @@ import { Scenario } from './Scenario';
 // Add the extension functions
 THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
+
+type WorldConfig = {
+  forceTouchScreen?: boolean;
+  pixelRatio?: number;
+};
+
 export class World {
   // game properties
   public renderer: THREE.WebGLRenderer;
@@ -67,6 +73,9 @@ export class World {
   // html target
   public target: HTMLDivElement;
 
+  // configuration
+  public config: WorldConfig;
+
   // debugger
   public debugger?: ReturnType<typeof CannonDebugger>;
   private debug = false;
@@ -87,18 +96,21 @@ export class World {
       onDownloadProgress?: (p: number, d: number, t: number) => void;
       onDownloadFinish?: () => void;
     } = {},
-    pixelRatio = 0,
+    config: WorldConfig = {
+      forceTouchScreen: false,
+    },
   ) {
     this.target = target;
+    this.config = config;
 
     // initialize Renderer
     this.renderer = new THREE.WebGLRenderer({ alpha: true });
-    if (pixelRatio) this.renderer.setPixelRatio(pixelRatio);
+    if (config.pixelRatio) this.renderer.setPixelRatio(config.pixelRatio);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     // initialization
-    this.inputManager = new InputManager(this, this.target);
+    this.inputManager = new InputManager(this, this.target, this.config.forceTouchScreen);
     this.loadingManager = new LoadingManager(this, {
       onStart: callbacks.onDownloadStart,
       onProgress: callbacks.onDownloadProgress,

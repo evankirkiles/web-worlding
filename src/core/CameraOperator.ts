@@ -13,7 +13,7 @@ import { IUpdatable } from '../interfaces/IUpdatable';
 import { Player } from '../players/Player';
 import { World } from '../world/World';
 import * as Utils from './FunctionLibrary';
-import { InputManager } from './InputManager';
+import { InputManager } from '../input/InputManager';
 
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 // initialize camera controller

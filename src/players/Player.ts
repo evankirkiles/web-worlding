@@ -8,7 +8,7 @@ import * as CANNON from 'cannon-es';
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib/loaders/GLTFLoader';
 import * as Utils from '../core/FunctionLibrary';
-import { InputManager } from '../core/InputManager';
+import { InputManager } from '../input/InputManager';
 import { CollisionGroups } from '../enums/CollisionGroups';
 import { EntityType } from '../enums/EntityType';
 import { InputButton } from '../enums/UserInputs';

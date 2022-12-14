@@ -5,7 +5,7 @@
  * 2022 the player space,
  */
 
-import { InputManager } from '../core/InputManager';
+import { InputManager } from '../input/InputManager';
 import { InputButton, InputJoystick } from '../enums/UserInputs';
 
 export interface IInputReceiver {
