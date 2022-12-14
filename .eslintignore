@@ -6,3 +6,6 @@ dist
 
 # don't lint nyc coverage output
 coverage
+
+# dont lint examples folder
+examples/

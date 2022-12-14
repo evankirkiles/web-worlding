@@ -17,7 +17,7 @@ import { InputManager } from './InputManager';
 
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 // initialize camera controller
-CameraControls.install({ THREE });
+CameraControls.install({ THREE: THREE });
 
 export class CameraOperator extends CameraControls implements IInputReceiver, IUpdatable {
   public updateOrder = 4;

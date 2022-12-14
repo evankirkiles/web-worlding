@@ -9,8 +9,8 @@
   <body>
     <div id="main"></div>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
-      integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
+      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.147.0/three.js"
+      integrity="sha512-yewcaF6iD3IU62N4N33Y8C7Zo3jx50MUaEMII/kQAdWnLdw4f3rab2Ay9Xp4O6waXDZhx7i/nvm+qGuJhXF+uw=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
@@ -18,7 +18,11 @@
     <script>
       // Build our world into the DOM
       const target = document.getElementById('main');
-      const world = new WebWorlding(target, 'assets/personspace.glb', 'assets/omi.glb');
+      const world = new WebWorlding(
+        target,
+        'https://evankirkiles-art.s3.amazonaws.com/web-worlding/personspace.glb',
+        'https://evankirkiles-art.s3.amazonaws.com/web-worlding/omi.glb',
+      );
     </script>
   </body>
 </html>

@@ -4,6 +4,7 @@
  * created on Sat Jun 25 2022
  * 2022 the player space,
  */
+import * as THREE from 'three';
 import { EntityType } from '../enums/EntityType';
 import { Player } from '../players/Player';
 import { IInputReceiver } from './IInputReceiver';
