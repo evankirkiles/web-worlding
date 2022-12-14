@@ -1,6 +1,6 @@
 {
   "name": "web-worlding",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "3D spaces explorable on the web.",
   "main": "dist/web-worlding.js",
   "jsnext:main": "dist/web-worlding.module.js",
