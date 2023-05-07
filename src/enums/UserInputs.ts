@@ -14,5 +14,5 @@ export enum InputButton {
   DOWN = 'down', // CTRL button / down movement
   SPEED = 'speed', // SHIFT button / move faster
   VIEWTOGGLE = 'viewtoggle', // C button / change camera controls
-  USE = 'use', // Use an item / interact
+  USE = 'use', // E button / Use an item / interact
 }

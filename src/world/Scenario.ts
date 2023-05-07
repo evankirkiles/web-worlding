@@ -8,6 +8,7 @@ import * as THREE from 'three';
 import { ISpawnPoint } from '../interfaces/ISpawnPoint';
 import { PlayerSpawnPoint } from './PlayerSpawnPoint';
 import { World } from './World';
+import { NPCSpawnPoint } from './NPCSpawnPoint';
 
 export class Scenario {
   // metadata
@@ -53,9 +54,23 @@ export class Scenario {
         Object.prototype.hasOwnProperty.call(child.userData, 'data')
       ) {
         if (child.userData.data === 'spawn') {
-          if (child.userData.type === 'player') {
-            const sp = new PlayerSpawnPoint(child);
-            this.spawnPoints.push(sp);
+          switch (child.userData.type) {
+            case 'player': {
+              const sp = new PlayerSpawnPoint(child);
+              this.spawnPoints.push(sp);
+              break;
+            }
+            case 'ai': {
+              const character = child.userData.character;
+              const modelPath = world.config.characters ? world.config.characters[character] : undefined;
+              if (modelPath) {
+                const sp = new NPCSpawnPoint(child, modelPath);
+                this.spawnPoints.push(sp);
+              }
+              break;
+            }
+            default:
+              break;
           }
         }
       }

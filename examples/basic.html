@@ -20,12 +20,15 @@
       const target = document.getElementById('main');
       const world = new WebWorlding(
         target,
-        'https://evankirkiles-art.s3.amazonaws.com/web-worlding/personspace.glb',
-        'https://evankirkiles-art.s3.amazonaws.com/web-worlding/omi.glb',
+        'https://nobotspace-next-git-maria-evankirkiles.vercel.app/assets/characters/maria2.glb',
+        '/examples/assets/room.glb',
         {},
         {
           forceTouchScreen: true,
           pixelRatio: 0.4,
+          characters: {
+            "evan": 'https://nobotspace-next-git-maria-evankirkiles.vercel.app/assets/characters/evan.glb'
+          }
         },
       );
     </script>

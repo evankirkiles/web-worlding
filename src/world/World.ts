@@ -22,6 +22,7 @@ import { IWorldEntity } from '../interfaces/IWorldEntity';
 import { Player } from '../players/Player';
 import { BoxCollider } from '../physics/colliders/BoxCollider';
 import { Scenario } from './Scenario';
+import { IInteractable } from '../interfaces/IInteractable';
 // Add the extension functions
 THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
@@ -29,6 +30,7 @@ THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 type WorldConfig = {
   forceTouchScreen?: boolean;
   pixelRatio?: number;
+  characters?: Record<string, string>;
 };
 
 export class World {
@@ -60,6 +62,7 @@ export class World {
 
   // game entities
   public players: Player[] = [];
+  public interactables: IInteractable[] = [];
   public updatables: IUpdatable[] = [];
   public scenarios: Scenario[] = [];
 

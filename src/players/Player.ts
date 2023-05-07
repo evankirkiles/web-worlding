@@ -24,6 +24,8 @@ import { World } from '../world/World';
 import { GroundImpactData } from './GroundImpactData';
 import { InteractionEntryInstance } from './InteractionEntryInstance';
 import { DropIdle, Falling, Idle, PlayerState, Walk } from './states/_stateLibrary';
+import { ClosestObjectFinder } from '../core/ClosestObjectFinder';
+import { IInteractable } from '../interfaces/IInteractable';
 
 /**
  * The PlayerPlayer class is the controller interface for the Player, which is
@@ -615,9 +617,18 @@ export class Player extends THREE.Object3D implements IWorldEntity, IInputReceiv
    * @param data The state of the joystick
    */
   public handleButtonEvent(button: InputButton, pressed: boolean): void {
-    if (button === InputButton.VIEWTOGGLE && pressed && this.world) {
-      this.world.cameraOperator.playerCaller = this;
-      this.world.inputManager.setInputReceiver(this.world.cameraOperator);
+    switch (button) {
+      case InputButton.VIEWTOGGLE:
+        if (pressed && this.world) {
+          this.world.cameraOperator.playerCaller = this;
+          this.world.inputManager.setInputReceiver(this.world.cameraOperator);
+        }
+        break;
+      case InputButton.USE:
+        if (pressed) this.findInteraction();
+        break;
+      default:
+        break;
     }
   }
 
@@ -754,5 +765,53 @@ export class Player extends THREE.Object3D implements IWorldEntity, IInputReceiv
     );
     this.tiltContainer.rotation.z = -this.angularVelocity * 1.2 * this.velocity.length();
     this.tiltContainer.position.setY(Math.cos(Math.abs(this.angularVelocity * 2.3 * this.velocity.length())) / 2 - 0.5);
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   ACTIONS                                  */
+  /* -------------------------------------------------------------------------- */
+
+  /**
+   * Blends the current-playing animation with another temporary, quick animation.
+   * @param animName 
+   * @param fadeIn 
+   */
+  public playAnimation(animName: string): number {
+    if (!this.mixer) return 0;
+    const clip = THREE.AnimationClip.findByName(this.animations, animName);
+    const action = this.mixer.clipAction(clip);
+    if (action === null) {
+      // console.error(`Animation ${animName} not found!`);
+      return 0;
+    }
+    action.setLoop(THREE.LoopOnce, 1);
+    action.clampWhenFinished = false;
+    action.setEffectiveWeight(1);
+    action.enabled = true;
+    action.play().reset();
+    return clip.duration;
+  }
+
+  /**
+   * Looks for interactable objects around the player. If one is found, then
+   * enters into that interaction.
+   * @returns 
+   */
+  public findInteraction(): void {
+    // find the best interactable object in the world
+    const interactionFinder = new ClosestObjectFinder<IInteractable>(this.position, 0.8);
+    this.world?.interactables.forEach((interactable) => {
+      interactionFinder.consider(interactable);
+    });
+
+    // if no interactable object found, just wave and exit
+    if (!interactionFinder.closestObject) {
+      this.playAnimation("wave");
+      return;
+    }
+
+    // otherwise, interact with it
+    const interactable = interactionFinder.closestObject;
+    interactable.onInteraction(this);
   }
 }

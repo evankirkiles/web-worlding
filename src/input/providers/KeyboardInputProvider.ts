@@ -19,6 +19,7 @@ export default class KeyboardInputProvider implements IInputProvider {
     ShiftLeft: InputButton.DOWN,
     ControlLeft: InputButton.SPEED,
     KeyC: InputButton.VIEWTOGGLE,
+    KeyE: InputButton.USE,
   };
 
   // actions for WASD movements
